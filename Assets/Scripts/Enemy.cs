@@ -4,37 +4,40 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] Transform targetDestination; //ใส่เป้าหมาย
-    [SerializeField] float speed; //ตั้งค่าความเร็ว
+    #region variable
+    [SerializeField] Transform targetDestination; //target player
+    [SerializeField] float speed; //speed enemy
     private Animator animator;
 
     Rigidbody2D rb;
-
+    #endregion
+    #region code
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>(); //รับค่า Rigibody2d
-        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>(); //get Rigibody2d
+        animator = GetComponent<Animator>(); //get animator
     }
 
     private void FixedUpdate()
     {
-        Vector2 direction = (targetDestination.position - transform.position).normalized; //ตั้งค่าให้ตามเป้าหมาย
-        rb.velocity = direction * speed; //ตั้งค่าความเร็ว
-        animator.SetInteger("Enemy", 1);
+        Vector2 direction = (targetDestination.position - transform.position).normalized; //follow player
+        rb.velocity = direction * speed; //speed
+        animator.SetInteger("Enemy", 1); //enemy play animation
 
         if (direction.x < 0)
         {
-            transform.localScale = new Vector3(10, 10, 1); // หันไปทางซ้าย
+            transform.localScale = new Vector3(10, 10, 1); // turn left
         }
         else if (direction.x > 0)
         {
-            transform.localScale = new Vector3(-10, 10, 1); // หันไปทางขวา
+            transform.localScale = new Vector3(-10, 10, 1); // turn right
         }
 
-        // ถ้าตัวละครหยุด ให้เปลี่ยนแอนิเมชั่น
+        // if enemy idle change animation to idle
         if (direction == Vector2.zero)
         {
-            animator.SetInteger("Enemy", 0);
+            animator.SetInteger("Enemy", 0); //enemy idle
         }
     }
+    #endregion
 }

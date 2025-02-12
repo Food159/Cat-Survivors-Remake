@@ -6,13 +6,15 @@ namespace Cainos.PixelArtTopDown_Basic
 {
     public class CameraFollow : MonoBehaviour
     {
-        public Transform target; //ตั้งค่าเป้าหมาย
-        public float lerpSpeed = 1.0f; //ความเร็วกล้อง
+        #region variable
+        public Transform target; //target
+        public float lerpSpeed = 1.0f; //speed camera
 
         private Vector3 offset;
 
         private Vector3 targetPos;
-
+        #endregion
+        #region code
         private void Start()
         {
             if (target == null) return;
@@ -27,6 +29,6 @@ namespace Cainos.PixelArtTopDown_Basic
             targetPos = target.position + offset;
             transform.position = Vector3.Lerp(transform.position, targetPos, lerpSpeed * Time.deltaTime);
         }
-
+        #endregion
     }
 }

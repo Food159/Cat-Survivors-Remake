@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scoree : MonoBehaviour
 {
-    public static int Score = 1; //คะแนน
+    public static int Score = 1; //score = 1
 }
    
    

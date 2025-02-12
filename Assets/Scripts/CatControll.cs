@@ -8,11 +8,12 @@ using UnityEngine.SceneManagement;
 
     public class CatControll : MonoBehaviour
     {
+    #region variable
         public float speed; 
         private Rigidbody2D player;
 
-        public GameObject reactionGroup; //ให้Scoreตอบสนอง
-        public TMP_Text Txt_Score; //ใส่คะแนน
+        public GameObject reactionGroup; //score
+        public TMP_Text Txt_Score; //score text
 
         private Vector3 RespawnPiont;
         private Scoree cat;
@@ -20,40 +21,42 @@ using UnityEngine.SceneManagement;
         public GameObject chicken;
 
         private Animator animator;
-
-        private void Start()
+    #endregion
+    #region code
+    private void Start()
         {
-            player = GetComponent<Rigidbody2D>(); //รับค่า Rigibody 2d
-            animator = GetComponent<Animator>(); //รับค่า Animator
-            RespawnPiont = transform.position; //จุดเกิดใหม่
+            player = GetComponent<Rigidbody2D>(); //get Rigibody2D
+            animator = GetComponent<Animator>(); //get animatio
+            RespawnPiont = transform.position; //respawn point
 
             transform.localScale = new Vector3(10, 10, 1);
-        }
+            Scoree.Score = 1;
+    }
 
 
         private void Update()
         {
             Vector2 dir = Vector2.zero;
             float currentSpeed = speed;
-            if (Input.GetKey(KeyCode.A)) //ถ้ากดปุ่ม A จะเดินตามแกน x ไปทางซ้าย และเปลี่ยนแอนิเมชั่นเป็นเดิน
+            if (Input.GetKey(KeyCode.A))
             {
                 dir.x = -1;
                 animator.SetInteger("Catto", 1);
                 transform.localScale = new Vector3(10, 10, 1);
             }
-            else if (Input.GetKey(KeyCode.D)) //ถ้ากดปุ่ม D จะเดินตามแกน x ไปทางขวา และเปลี่ยนแอนิเมชั่นเป็นเดิน
+            else if (Input.GetKey(KeyCode.D))
             {
                 dir.x = 1;
                 animator.SetInteger("Catto", 1);
                 transform.localScale = new Vector3(-10, 10, 1);
             }
 
-            if (Input.GetKey(KeyCode.W)) //ถ้ากดปุ่ม W จะเดินตามแกน x ไปทางด้านบน และเปลี่ยนแอนิเมชั่นเป็นเดิน
+            if (Input.GetKey(KeyCode.W))
             {
                 dir.y = 1;
                 animator.SetInteger("Catto", 1);
             }
-            else if (Input.GetKey(KeyCode.S)) //ถ้ากดปุ่ม S จะเดินตามแกน x ไปทางด้านล่าง และเปลี่ยนแอนิเมชั่นเป็นเดิน
+            else if (Input.GetKey(KeyCode.S))
             {
                 dir.y = -1;
                 animator.SetInteger("Catto", 1);
@@ -73,11 +76,11 @@ using UnityEngine.SceneManagement;
 
 
             //dir.Normalize();
-            //animator.SetBool("IsMoving", dir.magnitude > 0); //ตั้งค่าแอนิเมชั่นเดิน
+            //animator.SetBool("IsMoving", dir.magnitude > 0);
 
-            GetComponent<Rigidbody2D>().velocity = currentSpeed * dir * Time.deltaTime; //ตั้งค่าความเร็ว
+            GetComponent<Rigidbody2D>().velocity = currentSpeed * dir * Time.deltaTime;
 
-            Debug.Log(Scoree.Score.ToString()); //แปลงค่าสกอร์ให้เป็นข้อความ
+            Debug.Log(Scoree.Score.ToString());
             Txt_Score.text = Scoree.Score.ToString();
             reactionGroup.SetActive(true);
 
@@ -114,6 +117,7 @@ using UnityEngine.SceneManagement;
             SceneManager.LoadScene("Victory");
             Scoree.Score = 1;
     }
+    #endregion
 }
 
 
